@@ -9,9 +9,9 @@ class Ci_pos extends CI_Model {
         return $query->result_array();
     }
 
-    public function tambah_barang($nama_barang, $stok_barang) {
-        $query = "INSERT INTO barang (nama_barang, stok_barang, created)
-        VALUES ('$nama_barang', '$stok_barang', NOW())";
+    public function tambah_barang($nama_barang, $stok_barang, $harga_barang) {
+        $query = "INSERT INTO barang (nama_barang, stok_barang, harga_barang,created)
+        VALUES ('$nama_barang', '$stok_barang', '$harga_barang', NOW())";
         $this->db->query($query);
 
         return true;

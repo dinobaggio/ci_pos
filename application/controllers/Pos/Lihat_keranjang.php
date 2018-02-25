@@ -6,7 +6,8 @@ class Lihat_keranjang extends CI_Controller {
 
     public function index()
     {
-        $this->load->view("template/header");
+        $data['title'] = "Lihat Keranjang";
+        $this->load->view("template/header", $data);
         $this->load->view("pos/lihat_keranjang");
         $this->load->view("template/footer");
     }

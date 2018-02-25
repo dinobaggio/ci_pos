@@ -12,6 +12,7 @@
                         $id = $barang['id_barang'];
                         $nama = $barang['nama_barang'];
                         $stok_barang = $barang['stok_barang'];
+                        $harga_barang = $barang['harga_barang'];
                         $index = $i;
                         $i++;
                         $id_jumlah = "jumlah".$id;
@@ -25,25 +26,28 @@
                         
                         ?>
                         <td>
-                        <button onclick="keranjang(<?= 
-                        "'$nama','$id', 
-                        '$id_tombol', 
-                        '$id_jumlah', 
-                        '$id_cancel',  
-                        '$index'"
-                        ?>)" 
+                        <button onclick="keranjang({
+                            'id_barang':'<?= $id ?>',
+                            'nama_barang':'<?= $nama ?>',
+                            'stok_barang': '<?= $stok_barang?>',
+                            'harga_barang': '<?= $harga_barang ?>',
+                            'id_jumlah': '<?= $id_jumlah ?>',
+                            'id_tombol': '<?= $id_tombol ?>',
+                            'id_cancel':'<?= $id_cancel ?>',
+                            'index':'<?= $index ?>'
+                        })" 
                         id="<?= $id_tombol ?>">
                             masukan keranjang</button>
                         </td>
 
                         <td>
                             <button style='display:none' 
-                            onclick="cancel(<?= "
-                            '$id_jumlah', 
-                            '$id_tombol', 
-                            '$id_cancel',  
-                            '$index'" 
-                            ?>)"
+                            onclick = "cancel({
+                                'id_jumlah':'<?= $id_jumlah ?>',
+                                'id_tombol':'<?= $id_tombol ?>',
+                                'id_cancel':'<?= $id_cancel ?>',
+                                'index':'<?= $index?>'
+                            })"
                             id="<?= $id_cancel ?>">cancel</button>
                         </td>
 
@@ -59,16 +63,13 @@
                 function cek_keranjang () {
                     if (localStorage.keranjang != null ) {
                         let keranjang = JSON.parse(localStorage.keranjang);
-                        let filter_keranjang = [];
-                        for (let i=0;i<keranjang.length;i++) {
-                            if (keranjang[i] != null) {
-                                filter_keranjang.push(keranjang[i]);
-                            }
-                        }
-                        if (filter_keranjang[0] != null) {
-                            for (let i=0; i<filter_keranjang.length;i++) {
-                                let id = filter_keranjang[i].id_barang;
-                                let jumlah = filter_keranjang[i].jumlah;
+                        let filter = keranjang.filter(function (keranjang) {
+                            return keranjang != null;
+                        });
+                        if (filter[0] != null) {
+                            for (let i=0; i<filter.length;i++) {
+                                let id = filter[i].id_barang;
+                                let jumlah = filter[i].jumlah;
                                 let el_tombol = document.getElementById("tombol"+id);
                                 let el_jumlah = document.getElementById("jumlah"+id);
                                 let el_cancel = document.getElementById("cancel"+id);

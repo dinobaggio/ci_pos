@@ -23,8 +23,9 @@ class Tambah_barang extends CI_Controller {
         if(isset($_POST)) {
             $nama_barang = $this->input->post('nama_barang');
             $stok_barang = $this->input->post('stok_barang');
+            $harga_barang = $this->input->post('harga_barang');
             if (!empty($nama_barang) && !empty($stok_barang)) {
-                $tugas = $this->Ci_pos->tambah_barang($nama_barang, $stok_barang);
+                $tugas = $this->Ci_pos->tambah_barang($nama_barang, $stok_barang, $harga_barang);
                 if($tugas) {
 
                     $this->index('sukses memasukan data');

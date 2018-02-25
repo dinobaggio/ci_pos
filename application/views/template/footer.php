@@ -1,17 +1,18 @@
 <script>
-        function keranjang (nama_barang, id_barang, id_tombol, id_jumlah, id_cancel, index) {
+        function keranjang (data) {
             if (localStorage.keranjang == null ){
                 localStorage.setItem("keranjang", '[]');
             }
-            let el_jumlah = document.getElementById(id_jumlah);
-            let el_tombol = document.getElementById(id_tombol);
-            let el_cancel = document.getElementById(id_cancel);
+            let el_jumlah = document.getElementById(data.id_jumlah);
+            let el_tombol = document.getElementById(data.id_tombol);
+            let el_cancel = document.getElementById(data.id_cancel);
             
             if (el_jumlah.value != '') {
                 let array = JSON.parse(localStorage.keranjang);
-                array[index] = {
-                    'id_barang' : id_barang,
-                    'nama_barang': nama_barang,
+                array[data.index] = {
+                    'id_barang' : data.id_barang,
+                    'nama_barang': data.nama_barang,
+                    'harga_barang': data.harga_barang,
                     'jumlah' : el_jumlah.value
                 };
                 
@@ -23,13 +24,13 @@
             el_cancel.style.display = '';
         }
 
-        function cancel (id_jumlah, id_tombol, id_cancel, index) {
-            let el_jumlah = document.getElementById(id_jumlah);
-            let el_tombol = document.getElementById(id_tombol);
-            let el_cancel = document.getElementById(id_cancel);
+        function cancel (data) {
+            let el_jumlah = document.getElementById(data.id_jumlah);
+            let el_tombol = document.getElementById(data.id_tombol);
+            let el_cancel = document.getElementById(data.id_cancel);
             if (el_jumlah.value != '') {
                 let array = JSON.parse(localStorage.keranjang);
-                array[index] = null;
+                array[data.index] = null;
                 localStorage.keranjang = JSON.stringify(array);
             }
 
@@ -41,14 +42,11 @@
         function kirim_data () {
             let http = new XMLHttpRequest();
             let data = localStorage.keranjang;
-            let filter_data = [];
             if (data != null) {
                 data = JSON.parse(data);
-                for (let i=0;i<keranjang.length;i++) {
-                    if (data[i] != null) {
-                        filter_data.push(data[i]);
-                    }
-                }
+                let filter_data = data.filter(function (keranjang) {
+                    return keranjang != null
+                });
                 data = JSON.stringify(filter_data);
                 if (filter_data[0] != null) {
                     http.onreadystatechange = function () {
@@ -74,6 +72,8 @@
             }
             
         }
+
+        
 
         function transaksi () {
             window.open("<?= base_url('pos/transaksi') ?>", "_self");
