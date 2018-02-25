@@ -26,7 +26,7 @@
                         ?>
                         <td>
                         <button onclick="keranjang(<?= 
-                        "'$id', 
+                        "'$nama','$id', 
                         '$id_tombol', 
                         '$id_jumlah', 
                         '$id_cancel',  

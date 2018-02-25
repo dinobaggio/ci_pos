@@ -1,5 +1,5 @@
 <script>
-        function keranjang (id_barang, id_tombol, id_jumlah, id_cancel, index) {
+        function keranjang (nama_barang, id_barang, id_tombol, id_jumlah, id_cancel, index) {
             if (localStorage.keranjang == null ){
                 localStorage.setItem("keranjang", '[]');
             }
@@ -11,6 +11,7 @@
                 let array = JSON.parse(localStorage.keranjang);
                 array[index] = {
                     'id_barang' : id_barang,
+                    'nama_barang': nama_barang,
                     'jumlah' : el_jumlah.value
                 };
                 
@@ -65,6 +66,7 @@
                     http.send("keranjang="+data);
                 } else {
                     alert('tidak ada barang dalam keranjang!');
+                    localStorage.clear();
                 }
                 
             } else {
@@ -87,6 +89,9 @@
 
         function tambah_barang () {
             window.open("<?= base_url('pos/tambah_barang') ?>", "_self");
+        }
+        function lihat_keranjang () {
+            window.open("<?= base_url('pos/lihat_keranjang') ?>", "_self");
         }
 
         function clear_barang () {

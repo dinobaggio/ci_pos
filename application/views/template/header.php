@@ -11,4 +11,5 @@
         <button onclick='home()' >Home</button>
         <button onclick="lihat_barang()">Lihat Barang</button>
         <button onclick="tambah_barang()">Tambah Barang</button>
+        <button onclick="lihat_keranjang()">Lihat Keranjang</button>
     </div>
