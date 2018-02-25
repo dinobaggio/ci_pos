@@ -3,9 +3,11 @@
 <div id='tambah_barang'>
 
     <form method="post" action="<?= base_url('pos/tambah_barang/proses_tambah')?>">
-        Nama Barang: <input type="text" name="nama_barang"> <br/>
-        Stok Barang: <input type="number" name='stok_barang'> <br/>
-        <input type="submit" value='submit'>
+    <table>
+        <tr><td>Nama Barang:</td><td><input type="text" name="nama_barang"/></td></tr>
+        <tr><td>Stok Barang:</td><td><input type="number" name='stok_barang'></td></tr>
+        <tr><td><input type="submit" value='submit'></td></tr>
+    </table>
     </form>
 
 </div>
