@@ -141,6 +141,10 @@
             localStorage.clear();
             window.open("<?= base_url('pos/list_barang') ?>", "_self");
         }
+
+        function record_transaksi () {
+            window.open("<?= base_url('pos/record_transaksi') ?>", "_self");
+        }
         </script>
     </div>
 </body>

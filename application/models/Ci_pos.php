@@ -9,6 +9,24 @@ class Ci_pos extends CI_Model {
         return $query->result_array();
     }
 
+    public function list_struk() {
+        $query = $this->db->get('struk');
+        $struk = $query->result();
+        return $struk;
+    }
+
+    public function list_transaksi_struk($id_struk) {
+        $query = $this->db->get_where('transaksi', array('id_struk'=>$id_struk));
+        $transaksi = $query->result();
+        return $transaksi;
+    }
+
+    public function list_barang_transaksi($id_barang) {
+        $query = $this->db->get_where('barang', array('id_barang'=>$id_barang));
+        $barang = $query->row();
+        return $barang;
+    }
+
     public function tambah_barang($nama_barang, $stok_barang, $harga_barang) {
         $query = "INSERT INTO barang (nama_barang, stok_barang, harga_barang,created)
         VALUES ('$nama_barang', '$stok_barang', '$harga_barang', NOW())";
