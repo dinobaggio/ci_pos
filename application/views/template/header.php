@@ -10,7 +10,7 @@
     <div id='nav_bar'>
         <button onclick='home()' >Home</button>
         <button onclick="lihat_barang()">Lihat Barang</button>
+        <button onclick="lihat_keranjang()" id='tombol_keranjang'>Lihat Keranjang</button>
         <button onclick="tambah_barang()">Tambah Barang</button>
-        <button onclick="lihat_keranjang()">Lihat Keranjang</button>
         <button onclick="record_transaksi()">Record Transaksi</button>
     </div>

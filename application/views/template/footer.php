@@ -1,5 +1,5 @@
 <script>
-    
+    dalam_keranjang();
         function keranjang (data) {
             if (localStorage.keranjang == null ){
                 localStorage.setItem("keranjang", '[]');
@@ -22,6 +22,7 @@
                 };
                 
                 localStorage.keranjang = JSON.stringify(array);
+                dalam_keranjang();
             }
 
             el_jumlah.disabled = true;
@@ -70,7 +71,9 @@
                 let array = JSON.parse(localStorage.keranjang);
                 array[data.index] = null;
                 localStorage.keranjang = JSON.stringify(array);
-            }
+            } 
+
+            dalam_keranjang();
 
             el_jumlah.disabled = false;
             el_tombol.disabled = false;
@@ -114,6 +117,25 @@
                 }
             }
             
+        }
+
+        function dalam_keranjang () {
+            let keranjang = localStorage.keranjang;
+            let tombol_keranjang = document.getElementById('tombol_keranjang');
+            
+            if(keranjang != null) {
+                keranjang = JSON.parse(keranjang);
+                keranjang = keranjang.filter(function (keranjang) {
+                    return keranjang != null;
+                });
+                if(keranjang[0] != null) {
+                    let total_item = keranjang.length;
+                    tombol_keranjang.innerHTML = "Lihat Keranjang ("+total_item+")";
+                    console.log('keranjang ada isinya!');
+                } else {
+                    tombol_keranjang.innerHTML = "Lihat Keranjang";
+                }
+            }
         }
 
         

@@ -4,6 +4,7 @@
                 <tr>
                 <th>Nama Barang</th>
                 <th>Stok Barang</th>
+                <th>Harga Barang</th>
                 <th><button onclick='clear_barang()'>Clear</button></th>
                 </tr>
                 <?php 
@@ -25,6 +26,7 @@
                         echo "<tr>";
                         echo "<td>".$nama."</td>";
                         echo "<td>".$stok_barang."</td>";
+                        echo "<td>".$harga_barang."</td>";
                         
                         ?>
                         <td id="<?= $id_pilih ?>"><button onclick="pilih_barang({
