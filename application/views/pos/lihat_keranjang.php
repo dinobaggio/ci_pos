@@ -5,12 +5,17 @@
         <th>Nama Barang</th>
         <th>Jumlah Barang</th>
         <th>Harga Barang</th>
+        <th>Jumlah Harga</th>
         <th><button onclick='clear_barang()'>Clear</button></th>
         </tr> 
     </table>
-
+    <hr>
     <div id='div_jumlah'></div>
     <div id='div_harga'></div>
+    <input type="hidden" id='inp_barang' />
+    <input type="hidden" id='inp_harga' />
+
+    <button id='proses_beli'>Proses Pembelian</button>
 
 </div>
 
@@ -19,6 +24,9 @@ let table = document.getElementById('table');
 let isi_keranjang = document.getElementById("isi_keranjang");
 let div_jumlah = document.getElementById('div_jumlah');
 let div_harga = document.getElementById('div_harga');
+let inp_barang = document.getElementById('inp_barang');
+let inp_harga = document.getElementById('inp_harga');
+let tmbl_beli = document.getElementById('proses_beli');
 
 if (localStorage.keranjang != null) {
     let data = filter_keranjang();
@@ -27,41 +35,59 @@ if (localStorage.keranjang != null) {
     
     if (data) {
         for (let i=0;i<data.length;i++) {
-            let harga_barang = data[i].harga_barang;
-            let jumlah_barang = data[i].jumlah;
+            let harga_barang = Number(data[i].harga_barang);
+            let jumlah_barang = Number(data[i].jumlah_barang);
+            let jumlah_harga = Number(data[i].jumlah_harga);
+
             let tr = document.createElement("tr");
             let td_nama = document.createElement("td");
             let td_jumlah = document.createElement("td");
             let td_harga = document.createElement("td");
+            let td_total = document.createElement("td");
 
             let text_nama = document.createTextNode(data[i].nama_barang);
             let text_jumlah = document.createTextNode(jumlah_barang);
             let text_harga = document.createTextNode(harga_barang);
+            let text_total = document.createTextNode(jumlah_harga);
 
             td_nama.appendChild(text_nama);
             td_jumlah.appendChild(text_jumlah);
             td_harga.appendChild(text_harga);
+            td_total.appendChild(text_total);
+
 
             tr.appendChild(td_nama);
             tr.appendChild(td_jumlah);
             tr.appendChild(td_harga);
+            tr.appendChild(td_total);
 
             table.appendChild(tr);
-
-            harga_barang = Number(harga_barang) * Number(jumlah_barang);
             
-            total_barang = Number(total_barang) + Number(jumlah_barang);
-            total_harga = Number(total_harga)+Number(harga_barang);
+            total_barang = total_barang + jumlah_barang;
+            total_harga = total_harga + jumlah_harga;
         }
         
         div_jumlah.innerHTML = "Total Barang: "+total_barang;
-        div_harga.innerHTML = "Total Harga: "+total_harga+" Rp";
+        div_harga.innerHTML = "Total Harga: Rp. "+total_harga;
+        inp_barang.value = total_barang;
+        inp_harga.value = total_harga;
+
     } else {
         isi_keranjang.innerHTML = "<h1>Tidak ada barang</h1>";
     }
 } else {
     isi_keranjang.innerHTML = "<h1>Tidak ada barang</h1>";
 
+}
+
+tmbl_beli.onclick = function (){
+    let inp_barang = document.getElementById('inp_barang');
+    let inp_harga = document.getElementById('inp_harga');
+
+    kirim_data({
+        'total_barang':inp_barang.value,
+        'total_harga':inp_harga.value
+    });
 }
 
 function filter_keranjang() {
@@ -79,4 +105,6 @@ function filter_keranjang() {
         return filter;
     }
 }
+
+
 </script>

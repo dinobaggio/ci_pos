@@ -17,6 +17,19 @@ class Ci_pos extends CI_Model {
         return true;
     }
 
+    public function buat_struk ($total_harga, $total_barang) {
+        $query = "INSERT INTO struk (total_harga, total_barang, created) VALUES 
+        ('$total_harga', '$total_barang', NOW())";
+        $this->db->query($query);
+        return $this->db->insert_id();
+    }
+
+    public function buat_transaksi ($id_barang, $id_struk, $jumlah_barang, $jumlah_harga) {
+        $query = "INSERT INTO transaksi (id_barang, id_struk, jumlah_barang, jumlah_harga, created) VALUES
+        ('$id_barang', '$id_struk', '$jumlah_barang', '$jumlah_harga', NOW())";
+        $this->db->query($query);
+    }
+
 }
 
 /* End of file Ci_pos.php */

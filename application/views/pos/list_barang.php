@@ -18,45 +18,55 @@
                         $id_jumlah = "jumlah".$id;
                         $id_tombol = "tombol".$id;
                         $id_cancel = "cancel".$id;
+                        $id_input = "input".$id;
+                        $id_pilih = "pilih".$id;
+                        $id_tutup = "tutup".$id;
 
                         echo "<tr>";
                         echo "<td>".$nama."</td>";
                         echo "<td>".$stok_barang."</td>";
-                        echo "<td>masukan jumlah <input  type='number' id='$id_jumlah' size='3' style='width:80px'></td>";
                         
                         ?>
+                        <td id="<?= $id_pilih ?>"><button onclick="pilih_barang({
+                            'id_barang':'<?= $id ?>'
+                        })">Pilih</button>
+                        </td>
+
+                        <td id="<?= $id_input?>" style='display:none;'>
+                            masukan jumlah <input  type='number' id='<?= $id_jumlah?>' size='3' style='width:80px'>
+                        </td>
+
                         <td>
                         <button onclick="keranjang({
                             'id_barang':'<?= $id ?>',
                             'nama_barang':'<?= $nama ?>',
                             'stok_barang': '<?= $stok_barang?>',
                             'harga_barang': '<?= $harga_barang ?>',
-                            'id_jumlah': '<?= $id_jumlah ?>',
-                            'id_tombol': '<?= $id_tombol ?>',
-                            'id_cancel':'<?= $id_cancel ?>',
                             'index':'<?= $index ?>'
                         })" 
-                        id="<?= $id_tombol ?>">
+                        id="<?= $id_tombol ?>" style="display:none;">
                             masukan keranjang</button>
                         </td>
 
                         <td>
+                            <button onclick="tutup_pilih({
+                                'id_barang':'<?= $id ?>'
+                            })"
+                            id="<?= $id_tutup ?>" style="display:none">X</button>
+
                             <button style='display:none' 
                             onclick = "cancel({
-                                'id_jumlah':'<?= $id_jumlah ?>',
-                                'id_tombol':'<?= $id_tombol ?>',
-                                'id_cancel':'<?= $id_cancel ?>',
+                                'id_barang':'<?= $id ?>',
                                 'index':'<?= $index?>'
                             })"
                             id="<?= $id_cancel ?>">cancel</button>
                         </td>
 
-                        <?php
+                <?php
                         echo "</tr>";
                     } // akhir foreach
                 ?>
             </table>
-            <input type='submit' value='beli' onclick='kirim_data()' />
             <script>
                 cek_keranjang();
 
@@ -69,16 +79,21 @@
                         if (filter[0] != null) {
                             for (let i=0; i<filter.length;i++) {
                                 let id = filter[i].id_barang;
-                                let jumlah = filter[i].jumlah;
+                                let jumlah_barang = filter[i].jumlah_barang;
                                 let el_tombol = document.getElementById("tombol"+id);
                                 let el_jumlah = document.getElementById("jumlah"+id);
                                 let el_cancel = document.getElementById("cancel"+id);
+                                let el_pilih = document.getElementById("pilih"+id);
+                                let el_input = document.getElementById("input"+id);
                                 if (el_tombol != null &&
                                     el_jumlah != null &&
                                     el_cancel != null) {
                                         el_tombol.disabled = true;
                                         el_jumlah.disabled = true;
-                                        el_jumlah.value = jumlah;
+                                        el_jumlah.value = jumlah_barang;
+                                        el_pilih.style.display = 'none';
+                                        el_tombol.style.display = '';
+                                        el_input.style.display = '';
                                         el_cancel.style.display = '';
                                     }
                             }

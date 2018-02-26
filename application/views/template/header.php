@@ -12,4 +12,5 @@
         <button onclick="lihat_barang()">Lihat Barang</button>
         <button onclick="tambah_barang()">Tambah Barang</button>
         <button onclick="lihat_keranjang()">Lihat Keranjang</button>
+        <button onclick="record_transaksi()">Record Transaksi</button>
     </div>
