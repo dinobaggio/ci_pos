@@ -35,7 +35,7 @@
                         </td>
 
                         <td id="<?= $id_input?>" style='display:none;'>
-                            masukan jumlah <input  type='number' id='<?= $id_jumlah?>' size='3' style='width:80px'>
+                            masukan jumlah <input  type='number' id='<?= $id_jumlah?>' size='3' style='width:80px' >
                         </td>
 
                         <td>

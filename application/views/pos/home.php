@@ -1,2 +1,2 @@
- <h1>Halaman Awal</h1>
+<h1>Halaman Awal</h1>
     

@@ -35,9 +35,9 @@ class Ci_pos extends CI_Model {
         return true;
     }
 
-    public function buat_struk ($total_harga, $total_barang) {
-        $query = "INSERT INTO struk (total_harga, total_barang, created) VALUES 
-        ('$total_harga', '$total_barang', NOW())";
+    public function buat_struk ($total_harga, $total_barang, $id_pelanggan) {
+        $query = "INSERT INTO struk (total_harga, total_barang, id_pelanggan, created) VALUES 
+        ('$total_harga', '$total_barang', '$id_pelanggan', NOW())";
         $this->db->query($query);
         return $this->db->insert_id();
     }
@@ -46,6 +46,21 @@ class Ci_pos extends CI_Model {
         $query = "INSERT INTO transaksi (id_barang, id_struk, jumlah_barang, jumlah_harga, created) VALUES
         ('$id_barang', '$id_struk', '$jumlah_barang', '$jumlah_harga', NOW())";
         $this->db->query($query);
+    }
+
+    public function table_pelanggan($id_pelanggan = false){
+        if($id_pelanggan == false) {
+            $query = $this->db->get('pelanggan');
+            $pelanggan = $query->result(); //object
+            return $pelanggan;
+        } else {
+            $query = $this->db->get_where('pelanggan', array(
+                'id_pelanggan'=>$id_pelanggan
+            ));
+            $pelanggan = $query->row(); //object
+            return $pelanggan;
+        }
+
     }
 
 }

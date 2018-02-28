@@ -86,7 +86,8 @@ tmbl_beli.onclick = function (){
 
     kirim_data({
         'total_barang':inp_barang.value,
-        'total_harga':inp_harga.value
+        'total_harga':inp_harga.value,
+        'id_pelanggan': '<?= $id_pelanggan ?>'
     });
 }
 

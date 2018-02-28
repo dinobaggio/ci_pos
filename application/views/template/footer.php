@@ -5,6 +5,7 @@
                 localStorage.setItem("keranjang", '[]');
             }
             let id = data.id_barang;
+            let stok_barang = data.stok_barang;
             let el_jumlah = document.getElementById('jumlah'+id);
             let el_tombol = document.getElementById('tombol'+id);
             let el_cancel = document.getElementById('cancel'+id);
@@ -12,23 +13,28 @@
             let jumlah_harga = Number(data.harga_barang) * Number(el_jumlah.value);
             
             if (el_jumlah.value != '') {
-                let array = JSON.parse(localStorage.keranjang);
-                array[data.index] = {
-                    'id_barang' : id,
-                    'nama_barang': data.nama_barang,
-                    'harga_barang': data.harga_barang,
-                    'jumlah_harga' : jumlah_harga,
-                    'jumlah_barang' : el_jumlah.value
-                };
-                
-                localStorage.keranjang = JSON.stringify(array);
-                dalam_keranjang();
+                if (el_jumlah.value > stok_barang) {
+                    alert('jumlah barang '+data.nama_barang+' tidak boleh lebih dari stok barang');
+                } else {
+                    let array = JSON.parse(localStorage.keranjang);
+                    array[data.index] = {
+                        'id_barang' : id,
+                        'nama_barang': data.nama_barang,
+                        'harga_barang': data.harga_barang,
+                        'jumlah_harga' : jumlah_harga,
+                        'jumlah_barang' : el_jumlah.value
+                    };
+                    
+                    localStorage.keranjang = JSON.stringify(array);
+                    dalam_keranjang();// info notif tombol example lihat keranjang (1)
+                    el_jumlah.disabled = true;
+                    el_tombol.disabled = true;
+                    el_tutup.style.display = 'none';
+                    el_cancel.style.display = '';
+                }
             }
 
-            el_jumlah.disabled = true;
-            el_tombol.disabled = true;
-            el_tutup.style.display = 'none';
-            el_cancel.style.display = '';
+            
         }
 
         function pilih_barang (data) {
@@ -73,7 +79,7 @@
                 localStorage.keranjang = JSON.stringify(array);
             } 
 
-            dalam_keranjang();
+            dalam_keranjang(); // info notif tombol example lihat keranjang (1)
 
             el_jumlah.disabled = false;
             el_tombol.disabled = false;
